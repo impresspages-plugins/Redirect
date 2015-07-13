@@ -25,6 +25,12 @@ class AdminController extends \Ip\GridController
                     'validators' => array('Required')
                 ),
                 array(
+                    'label' => __('Case sensitive', 'Redirect', false),
+                    'type' => 'Checkbox',
+                    'field' => 'isCaseSensitive',
+                    'default' => 1
+                ),
+                array(
                     'label' => __('To', 'Redirect', false),
                     'field' => 'destination',
                     'note' => __('URL where to redirect', 'Redirect', false),

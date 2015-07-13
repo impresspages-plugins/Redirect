@@ -41,28 +41,15 @@ class Model
             if (substr($source, -1) == '/') {
                 $source = substr($source, 0, -1);
             }
-            if (fnmatch($source, $url)) {
+            $flags = 0;
+            if (!$rule['isCaseSensitive']) {
+                $flags = FNM_CASEFOLD;
+            }
+            if (fnmatch($source, $url, $flags)) {
                 return $rule;
             }
         }
-//
-//
-//        $table = ipTable('redirect');
-//        $sql = "
-//        SELECT * FROM
-//        $table
-//        WHERE
-//        `source` like :source
-//        AND
-//        `active`
-//        ORDER BY
-//        `ruleOrder`
-//        ";
-//
-//        $params = array (
-//            'source' => str_replace('*', '%', $url)
-//        );
-//        return ipDb()->fetchAll($sql, $params);
+
 
     }
 

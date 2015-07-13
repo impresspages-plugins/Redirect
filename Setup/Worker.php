@@ -22,6 +22,26 @@ class Worker extends \Ip\SetupWorker
 
         ipDb()->execute($sql);
 
+        //add title column if not exist
+        $ceckSql = "
+        SELECT
+          *
+        FROM
+          information_schema.COLUMNS
+        WHERE
+            TABLE_SCHEMA = :database
+            AND TABLE_NAME = :table
+            AND COLUMN_NAME = :column
+        ";
+        $table = ipTable('redirect');
+        $result = ipDb()->fetchAll($ceckSql, array('database' => ipConfig()->database(), 'table' => ipConfig()->tablePrefix() . 'redirect', 'column' => 'isCaseSensitive'));
+        if (!$result) {
+            $sql = "ALTER TABLE $table ADD `isCaseSensitive` TINYINT(1) NOT NULL DEFAULT 1;";
+            ipDb()->execute($sql);
+        }
+
+
+
     }
 
     public function deactivate()
