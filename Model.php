@@ -42,7 +42,7 @@ class Model
                 $source = substr($source, 0, -1);
             }
             $flags = 0;
-            if (!$rule['isCaseSensitive']) {
+            if (!empty($rule['isCaseSensitive'])) {
                 $flags = FNM_CASEFOLD;
             }
             if (fnmatch($source, $url, $flags)) {
